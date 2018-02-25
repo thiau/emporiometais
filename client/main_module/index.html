@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<title>Emporio Metais</title>
+	<style>
+		html, body {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			background-color: lightcyan;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<div class="header">
+			<div class="header-info">
+				<div class="header-info-left">
+
+				</div>
+				<div class="header-info-right">
+					<div class="social">
+						<div class="social-icon">
+							<i class="fab fa-facebook-square fa-3x"></i>
+						</div>
+						<div class="social-icon">
+							<i class="fab fa-whatsapp fa-3x"></i>
+						</div>
+						<div class="social-icon">
+							<i class="fab fa-instagram fa-3x"></i>
+						</div>
+					</div>
+					<div class="search">
+						<div class="search-box">
+							<!-- <i class="fas fa-search fa-1x" style="color: white"></i> -->
+							<input class="search-input" placeholder="" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="header-menu">
+				<div v-for="menu in menuItems" class="menu-item" @click="activeScreen = menu.id">
+					{{menu.name}}
+				</div>
+			</div>
+		</div>
+		<div class="action-screen">
+			<div class="content" v-if="activeScreen === 1">
+				<div class="home">
+					<div class="test"></div>
+					<div class="test"></div>
+					<div class="test"></div>
+				</div>
+			</div>
+			<div class="content" v-if="activeScreen === 3">
+				<div class="map">
+					<div class="map-iframe">
+						<iframe :src="map" frameborder="0" style="border:0" allowfullscreen></iframe>
+					</div>
+				</div>
+				<div class="contact">
+					<div class="address">
+						<span class="addressContent">
+							<span>
+								<div class="addressTitle">
+									<span>ENDEREÇO</span>
+								</div>
+								<p>Rua Afonso Pena, 136</p>
+								<p>Jardim Niero</p>
+								<p>Louveira, São Paulo</p>
+							</span>
+							<p><br /></p>
+							<span>
+								<div class="addressTitle">
+									<span>TELEFONE</span>
+								</div>
+								<p>11 989565208</p>
+							</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <script>
+        var app = new Vue({
+            "el": '#app',
+            "data": {
+				"menuItems": [
+					{
+						"name": "HOME",
+						"id": 1
+					},
+					{
+						"name": "PRODUTOS",
+						"id": 2
+					},
+					{
+						"name": "CONTATO",
+						"id": 3
+					}
+				],
+				"currentScreen": 1,
+				"map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1148.2538584649647!2d-46.951605180362506!3d-23.08661634686598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cf2e79efffffff%3A0x713be5f6dbeef1f!2sSUPERMERCADO+VITORIA!5e0!3m2!1sen!2sbr!4v1517081330064"
+			},
+			"computed": {
+				"activeScreen": {
+					"get": function () {
+						return this.currentScreen;
+					},
+					"set": function (value) {
+						this.currentScreen = value;
+					}
+				}
+			}
+        })
+	</script>
+	
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+	<noscript>
+		Your browser does not support Script at this time
+	</noscript>
+</body>
+
+</html>
