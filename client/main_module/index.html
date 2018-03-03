@@ -21,7 +21,7 @@
 		<div class="header">
 			<div class="header-info">
 				<div class="header-info-left">
-
+					<img class="logo" src="../resources/images/logo.svg"/>
 				</div>
 				<div class="header-info-right">
 					<div class="social">
@@ -64,9 +64,10 @@
 						v-on:mouseout="startRotation"
 						/>
 					</div>
+					<div class="brands"></div>
 				</div>
 			</div>
-			<div class="content" v-if="activeScreen === 3">
+			<div class="content-map" v-if="activeScreen === 3">
 				<div class="map">
 					<div class="map-iframe">
 						<iframe :src="map" frameborder="0" style="border:0" allowfullscreen></iframe>
