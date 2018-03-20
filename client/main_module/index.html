@@ -59,7 +59,7 @@
 						>
 					<img
 						class="image"
-						:src="images[Math.abs(currentNumber) % images.length]"
+						:src="homeImages[Math.abs(currentNumber) % homeImages.length]"
 						v-on:mouseover="stopRotation"
 						v-on:mouseout="startRotation"
 						/>
@@ -111,13 +111,16 @@
         var app = new Vue({
             "el": '#app',
             "data": {
-				images: [
-					'https://ld-prestashop.template-help.com/prestashop_62363/modules/ps_imageslider/images/e215f8fbebed74ba3cf88cdb541307f91114f837_slide_1.jpg', 
-					'https://ld-prestashop.template-help.com/prestashop_62363/modules/ps_imageslider/images/7dc9fd5671f78ae1c9f348214ac658a3f3e6a7f4_slide_2.jpg', 
-					'https://ld-prestashop.template-help.com/prestashop_62363/modules/ps_imageslider/images/cfe84d7e28ddaf1b5424b97a60ff8934fccd4719_slide_3.jpg'
+				"homeImages": [
+					"https://ld-prestashop.template-help.com/prestashop_62363/modules/ps_imageslider/images/e215f8fbebed74ba3cf88cdb541307f91114f837_slide_1.jpg", 
+					"https://ld-prestashop.template-help.com/prestashop_62363/modules/ps_imageslider/images/7dc9fd5671f78ae1c9f348214ac658a3f3e6a7f4_slide_2.jpg", 
+					"https://ld-prestashop.template-help.com/prestashop_62363/modules/ps_imageslider/images/cfe84d7e28ddaf1b5424b97a60ff8934fccd4719_slide_3.jpg"
 				],
-        		currentNumber: 0,
-        		timer: null,
+				"brandsImages": [
+					1,2,3,4,5,6,7,8
+				],
+        		"currentNumber": 0,
+        		"timer": null,
 				"menuItems": [
 					{
 						"name": "HOME",
