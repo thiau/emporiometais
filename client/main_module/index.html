@@ -23,13 +23,10 @@
 				<div class="header-info-left">
 					<img class="logo" src="../resources/images/logo.svg"/>
 				</div>
-				<div class="header-info-right">
+				<!-- <div class="header-info-right">
 					<div class="social">
 						<div class="social-icon" @click="openSocial(1)">
 							<i class="fab fa-facebook-square fa-3x"></i>
-						</div>
-						<div class="social-icon" @click="openSocial(2)">
-							<i class="fab fa-whatsapp fa-3x"></i>
 						</div>
 						<div class="social-icon" @click="openSocial(3)">
 							<i class="fab fa-instagram fa-3x"></i>
@@ -37,14 +34,14 @@
 					</div>
 					<div class="search">
 						<div class="search-box">
-							<!-- <i class="fas fa-search fa-1x" style="color: white"></i> -->
+							<i class="fas fa-search fa-1x" style="color: white"></i>
 							<input class="search-input" placeholder="" />
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<div class="header-menu">
-				<div v-for="menu in menuItems" class="menu-item" @click="activeScreen = menu.id">
+				<div v-for="menu in menuItems" class="menu-item" :class="menuHoverClass" @click="activeScreen = menu.id" @mouseover="menuHoverCall()">
 					{{menu.name}}
 				</div>
 			</div>
@@ -64,7 +61,19 @@
 						v-on:mouseout="startRotation"
 						/>
 					</div>
-					<div class="brands"></div>
+					<div class="brands">
+						<div v-for="brand in brandList" class="brandImage">
+							<div class="brandImage" :style="{ 'background-image': 'url('+brand+')' }"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content" v-if="activeScreen === 2">
+				<div class="product-wrapper">
+					<div class="productItem" v-for="product in productList">
+						<div class="productImage" :style="{ 'background-image': 'url('+product.image+')' }"></div>
+						<div class="productName">{{product.name.toUpperCase()}}</div>
+					</div>
 				</div>
 			</div>
 			<div class="content-map" v-if="activeScreen === 3">
@@ -80,24 +89,20 @@
 								<div class="titleBox">
 									<span>ENDEREÇO</span>
 								</div>
-								<p>Rua Afonso Pena, 136</p>
-								<p>Jardim Niero</p>
-								<p>Louveira, São Paulo</p>
+								<p class="addr-line">Rua Angelo Steck, 65</p>
+								<p class="addr-line">Vila Nova</p>
+								<p class="addr-line">Louveira, São Paulo</p>
+								<p class="addr-line">13290-000</p>
 							</span>
 							<p><br /></p>
 							<span>
 								<div class="titleBox">
-									<span>TELEFONE</span>
+									<span>TELEFONES</span>
 								</div>
-								<p>11 989565208</p>
+								<p class="addr-line"><i class="fas fa-phone"></i>&nbsp;&nbsp;19 3878-7541</p>
+								<p class="addr-line"><i class="fab fa-whatsapp"></i>&nbsp;&nbsp;19 99446-4675</p>
 							</span>
 							<p><br /></p>
-							<span>
-								<div class="titleBox">
-									<span>OUTRAS COISAS</span>
-								</div>
-								<p>AQUI PODEMOS ADICIONAR QUALQUER OUTRA COSITA</p>
-							</span>
 						</span>
 					</div>
 				</div>
@@ -108,7 +113,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
     <script>
-        var app = new Vue({
+		//(19) 994464675
+        let app = new Vue({
             "el": '#app',
             "data": {
 				"homeImages": [
@@ -116,8 +122,15 @@
 					"https://ld-prestashop.template-help.com/prestashop_62363/modules/ps_imageslider/images/7dc9fd5671f78ae1c9f348214ac658a3f3e6a7f4_slide_2.jpg", 
 					"https://ld-prestashop.template-help.com/prestashop_62363/modules/ps_imageslider/images/cfe84d7e28ddaf1b5424b97a60ff8934fccd4719_slide_3.jpg"
 				],
-				"brandsImages": [
-					1,2,3,4,5,6,7,8
+				"brandList": [
+					"https://logos-download.com/wp-content/uploads/2016/10/Makita_logo_logotype.png",
+					"https://logos-download.com/wp-content/uploads/2016/10/Makita_logo_logotype.png",
+					"https://logos-download.com/wp-content/uploads/2016/10/Makita_logo_logotype.png",
+					"https://logos-download.com/wp-content/uploads/2016/10/Makita_logo_logotype.png",
+					"https://logos-download.com/wp-content/uploads/2016/10/Makita_logo_logotype.png",
+					"https://logos-download.com/wp-content/uploads/2016/10/Makita_logo_logotype.png",
+					"https://logos-download.com/wp-content/uploads/2016/10/Makita_logo_logotype.png",
+					"https://logos-download.com/wp-content/uploads/2016/10/Makita_logo_logotype.png"
 				],
         		"currentNumber": 0,
         		"timer": null,
@@ -136,7 +149,66 @@
 					}
 				],
 				"currentScreen": 1,
-				"map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1148.2538584649647!2d-46.951605180362506!3d-23.08661634686598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cf2e79efffffff%3A0x713be5f6dbeef1f!2sSUPERMERCADO+VITORIA!5e0!3m2!1sen!2sbr!4v1517081330064"
+				"map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1148.2538584649647!2d-46.951605180362506!3d-23.08661634686598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cf2e79efffffff%3A0x713be5f6dbeef1f!2sSUPERMERCADO+VITORIA!5e0!3m2!1sen!2sbr!4v1517081330064",
+				"productList":  [
+					{
+						"name": "Parafusos",
+						"image": "http://www.lpparafusos.com.br/Assets/images/banner01.jpg"
+					},
+					{
+						"name": "Brocas",
+						"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP_VY0_L9UlvMZ5IJ9zl1yiFbzkxpak-2PV4cGiSxCEDX4hV4Y"
+					},
+					{
+						"name": "Ferramentas Elétricas",
+						"image": "http://frmotores.com.br/site/images/slider/img3.png"
+					},
+					{
+						"name": "Rodizios",
+						"image": "https://sc01.alicdn.com/kf/HTB1XkGhJXXXXXaJaXXX760XFXXXu/222700024/HTB1XkGhJXXXXXaJaXXX760XFXXXu.png"
+					},
+					{
+						"name": "Ferramentas Manuais",
+						"image": "http://www.lojadomecanico.com.br/imagens/2/301/71268/Kit-de-Ferramentas-Manuais-Hobby-com-53--schulz-9270027-01.JPG"
+					},
+					{
+						"name": "EPIs",
+						"image": "https://www.epi-tuiuti.com.br/wp-content/uploads/2015/08/1-Seguranca.jpg"
+					},
+					{
+						"name": "Correrias",
+						"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFt-uRdrmnRELMBMWo_Rw-7UF2N54d0IRDH2et87Jl3zXAjrAYJg"
+					},
+					{
+						"name": "Fechaduras",
+						"image": "https://ae01.alicdn.com/kf/HTB1AAiFJFXXXXc2XpXXq6xXFXXX5/A-o-inoxid-vel-parafuso-duplo-fechaduras-fechaduras-ma-aneta-da-porta-do-quarto-de-madeira.jpg_640x640.jpg"
+					},
+					{
+						"name": "Acessório para Móveis	",
+						"image": "http://www.decoracaoeplanejamento.com/wp-content/uploads/2014/02/acessorios-para-moveis-7.png"
+					},
+					{
+						"name": "Rolamentos",
+						"image": "https://http2.mlstatic.com/rolamento-red-bones-red-skate-D_NQ_NP_468511-MLB20585291136_022016-F.jpg"
+					},
+					{
+						"name": "Químicos",
+						"image": "https://images-na.ssl-images-amazon.com/images/I/413cQxwmbyL.jpg"
+					},
+					{
+						"name": "Utilidades",
+						"image": "https://http2.mlstatic.com/nicho-decorativo-mdf-kit-3-unidades-o-mais-vendido-do-ml-D_NQ_NP_334625-MLB25480662990_042017-F.jpg"
+					},
+					{
+						"name": "Produtos para Psicina",
+						"image": "http://img.olx.com.br/images/88/885826015747564.jpg"
+					},
+					{
+						"name": "Jardinagem",
+						"image": "https://img.etsystatic.com/il/d582bd/482239814/il_fullxfull.482239814_qief.jpg"
+					}
+				],
+				"menuHover": false
 			},
 			"computed": {
 				"activeScreen": {
@@ -146,9 +218,17 @@
 					"set": function (value) {
 						this.currentScreen = value;
 					}
+				},
+				"menuHoverClass": function (url) {
+					if (this.menuHover) {
+						return "menuHover";
+					}
 				}
 			},
 			"methods": {
+				"menuHoverCall": function () {
+					this.menuHover = true;
+				},
 				"openSocial": function (site) {
 					if (site === 1) {
 						window.open("https://www.facebook.com/emporiodosmetais/");
